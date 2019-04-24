@@ -1,0 +1,21 @@
+<form [formGroup]="workoutsForm">
+  <div formArrayName="exercises">
+    <div *ngFor="let exerciseForm of exerciseForms.controls; let i = index" [formGroupName]="i">
+      <input type="text" placeholder="Exercise" formControlName="name"/>
+      <input type="text" placeholder="Duration"  formControlName="duration"/>
+      <button (click)="addExercise()" [disabled]="exerciseForm.invalid">Add</button>
+    </div>
+  </div>
+  <button (click)="review()">Review</button>
+  <div *ngIf="showReview">
+    <div *ngFor="let exerciseForm of exerciseForms.controls; let i = index">
+      {{ exerciseForm.get('name').value }} | {{ exerciseForm.get('duration').value }}
+      <br />
+    </div>
+  </div>
+  <br />
+  <div>
+    <button (click)="startWorkout()">Start</button>
+    {{ initialTimer }}
+  </div>
+</form>
